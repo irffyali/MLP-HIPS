@@ -62,15 +62,17 @@ data = data.dropna()
 
 
 
-X = data[['T', 'Lacc']].values
+X = data[['B-V', 'L']].values #color index and Luminosity
 y = data['classvar'].values
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0) #split dataset into training and testing data
 
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
+sun = np.array([[5778, 1]])
+sunpred = sc.transform(sun)
 
-mlp = MLPClassifier(hidden_layer_sizes=(30,30,30))
+mlp = MLPClassifier(hidden_layer_sizes=(2,2))
 mlp.fit(X_train,y_train)
 predictions = mlp.predict(X_test)
 
@@ -92,5 +94,18 @@ y_pred = clf.predict(X_test)
 from sklearn import metrics
 
 # Model Accuracy: how often is the classifier correct?
-print("svm Accuracy:",metrics.accuracy_score(y_test, y_pred))
-print("mlp Accuracy:",metrics.accuracy_score(y_test, predictions))
+print("svm Accuracy:",metrics.accuracy_score(y_test, y_pred)) #99.8% overfitted?
+print("mlp Accuracy:",metrics.accuracy_score(y_test, predictions)) 
+
+#using models to predict the class of the sun which is G i.e. 3
+sun = np.array([[0.656, np.log10(1)]])
+sunpred = sc.transform(sun)
+print(mlp.predict(sunpred))
+print(clf.predict(sunpred))
+
+
+
+#both models predict the class of the sun correctly.
+
+
+
