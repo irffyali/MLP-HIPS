@@ -79,5 +79,18 @@ print(confusion_matrix(y_test,predictions))
 
 print(classification_report(y_test,predictions))
 
+from sklearn import svm
 
+#Create a svm Classifier
+clf = svm.SVC(kernel='linear') # Linear Kernel
 
+#Train the model using the training sets
+clf.fit(X_train, y_train)
+
+#Predict the response for test dataset
+y_pred = clf.predict(X_test)
+from sklearn import metrics
+
+# Model Accuracy: how often is the classifier correct?
+print("svm Accuracy:",metrics.accuracy_score(y_test, y_pred))
+print("mlp Accuracy:",metrics.accuracy_score(y_test, predictions))
