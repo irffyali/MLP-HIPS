@@ -21,7 +21,14 @@ from keras.models import Sequential
 from keras.layers import Dense
 import warnings
 from sklearn.neural_network import MLPClassifier
-
+f = open("HIP_star.dat") #.dat file can be read as text file, here we create our csv by manipulating the text file.
+lines = f.readlines()
+file = open("myfile.txt", "w")
+for line in lines:
+    
+    file.write(re.sub(" +", " ", line))
+df = pd.read_csv('myfile.txt', sep=" ")
+df.to_csv(r'HIPSdata.csv')
 data = pd.read_csv('HIPSdata.csv')
 data['parsec'] = 1000/data['Plx'] 
 data['T'] = 5601/((data['B-V'] +0.4)**(2/3))
