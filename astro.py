@@ -21,7 +21,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 import warnings
 from sklearn.neural_network import MLPClassifier
-f = open("HIP_star.dat") #.dat file can be read as text file, here we create our csv by manipulating the text file.
+f = open("HIP_star.dat") #.dat file can be read as text file, here we create our csv & dataframe by manipulating the text file.
 lines = f.readlines()
 file = open("myfile.txt", "w")
 for line in lines:
